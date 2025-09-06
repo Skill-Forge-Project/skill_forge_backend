@@ -38,10 +38,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'debug_toolbar',
     'rest_framework',
     'userauth',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+]
+
+CORS_ALLOW_HEADERS = ['*']
+
+CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+
+CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL = 'userauth.AppUser'
 # REST_FRAMEWORK = {
@@ -67,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 INTERNAL_IPS = [

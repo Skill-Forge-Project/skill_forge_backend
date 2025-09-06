@@ -1,10 +1,7 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
-
 from userauth.models import AppUser
 
-
-class RegisterSerializer(serializers.ModelSerializer):
+class AppUserSerializer(serializers.ModelSerializer):
     """
     Serializer for registering a new user.
 
@@ -12,25 +9,20 @@ class RegisterSerializer(serializers.ModelSerializer):
     Password is write-only and securely hashed before saving.
     """
 
-    password = serializers.CharField(write_only=True)
-
+    password = serializers.CharField(write_only=True, required=True)
     class Meta:
         model = AppUser
-        fields = ('username', 'email', 'password')
-
+        fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name', 'is_staff']
+        read_only_fields = ['id', 'is_staff']
+        
     def create(self, validated_data):
-        """
-        Create and return a new User instance, given the validated data.
-
-        Args:
-            validated_data (dict): Dictionary containing username, email, and password.
-
-        Returns:
-            User: A newly created User object.
-        """
-        user = AppUser.objects.create_user(
+        user = AppUser(
             username=validated_data['username'],
             email=validated_data['email'],
-            password=validated_data['password']
+            first_name=validated_data.get('first_name', ''),
+            last_name=validated_data.get('last_name', ''),
         )
+        user.set_password(validated_data['password'])
+        user.save()
         return user
+        

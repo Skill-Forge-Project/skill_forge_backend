@@ -1,9 +1,7 @@
 from rest_framework import generics
-
-import userauth
 from .models import AppUser
-from .serializers import RegisterSerializer
-from django.contrib.auth.models import User
+from .serializers import AppUserSerializer
+
 
 class RegisterView(generics.CreateAPIView):
     """
@@ -14,4 +12,4 @@ class RegisterView(generics.CreateAPIView):
     """
 
     queryset = AppUser.objects.all()
-    serializer_class = RegisterSerializer
+    serializer_class = AppUserSerializer
