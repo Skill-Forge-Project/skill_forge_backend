@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from userauth.models import AppUser
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     """
     Serializer for registering a new user.
@@ -12,7 +15,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
+        model = AppUser
         fields = ('username', 'email', 'password')
 
     def create(self, validated_data):
@@ -25,7 +28,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         Returns:
             User: A newly created User object.
         """
-        user = User.objects.create_user(
+        user = AppUser.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password']

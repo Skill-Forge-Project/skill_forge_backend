@@ -1,4 +1,7 @@
 from rest_framework import generics
+
+import userauth
+from .models import AppUser
 from .serializers import RegisterSerializer
 from django.contrib.auth.models import User
 
@@ -10,5 +13,5 @@ class RegisterView(generics.CreateAPIView):
     Returns the created user data (excluding password).
     """
 
-    queryset = User.objects.all()
+    queryset = AppUser.objects.all()
     serializer_class = RegisterSerializer
