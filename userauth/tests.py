@@ -16,7 +16,10 @@ class RegistrationTestCase(APITestCase):
         self.user_data = {
             'email': 'test@example.com',
             'username': 'testuser',
-            'password': 'securepassword123'
+            'password': 'Password13579!!!',
+            'password2': 'Password13579!!!',
+            'first_name': 'Test',
+            'last_name': 'User'
         }
 
     def test_user_registration(self):
