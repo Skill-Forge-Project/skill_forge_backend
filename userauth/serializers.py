@@ -1,3 +1,4 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from userauth.models import AppUser
 
@@ -10,10 +11,21 @@ class AppUserSerializer(serializers.ModelSerializer):
     """
 
     password = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = AppUser
-        fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name', 'is_staff']
+        fields = ['id', 'username', 'password', 'password2', 'email', 'first_name', 'last_name', 'is_staff']
         read_only_fields = ['id', 'is_staff']
+
+    def validate_password(self, value):
+        validate_password(value, self.instance)
+        return value
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs["password2"]:
+            raise serializers.ValidationError({"password2": "Passwords do not match."})
+        return attrs
         
     def create(self, validated_data):
         user = AppUser(
