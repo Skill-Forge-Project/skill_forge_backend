@@ -51,3 +51,16 @@ class UserOnlineStatus(models.Model):
     user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='online_status')
     status = models.CharField(max_length=10, default='Offline')
     last_seen = models.DateTimeField(auto_now=True)
+
+
+class UserGamification(models.Model):
+    """Model representing gamification attributes for a user.
+
+    Args:
+        models (class): Base class for all Django models.
+    """
+    user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='gamification')
+    xp_points = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)
+    rank = models.CharField(max_length=50, default='Novice')
+
