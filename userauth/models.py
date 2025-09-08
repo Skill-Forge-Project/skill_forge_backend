@@ -77,3 +77,16 @@ class UserSolvedQuests(models.Model):
     java = models.IntegerField(default=0)
     javascript = models.IntegerField(default=0)
     csharp = models.IntegerField(default=0)
+    
+
+class UserSubmittedQuests(models.Model):
+    """Model representing the number of quests submitted by a user and their statuses.
+
+    Args:
+        models (class): Base class for all Django models.
+    """
+    user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='submitted_quests')
+    total_submitted = models.IntegerField(default=0)
+    approved = models.IntegerField(default=0)
+    rejected = models.IntegerField(default=0)
+    pending = models.IntegerField(default=0)
