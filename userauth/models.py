@@ -3,6 +3,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 class AppUser(AbstractUser):
+    """Model representing a user in the application.
+
+    Args:
+        AbstractUser (class): Django's built-in abstract user model.
+    """
     email = models.EmailField(_('email address'), unique=True)
 
     USERNAME_FIELD = 'email'
@@ -10,3 +15,18 @@ class AppUser(AbstractUser):
 
     class Meta:
             db_table = "app_user"
+
+
+class UserAvatar(models.Model):
+    """Model representing a user's avatar image.
+
+    Args:
+        models.Model (class): Base class for all Django models.
+    """
+    user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='avatar')
+    image = models.ImageField(upload_to='avatars/') # Requires Pillow library
+
+    def __str__(self):
+        return f"Avatar for {self.user.username}"
+
+
