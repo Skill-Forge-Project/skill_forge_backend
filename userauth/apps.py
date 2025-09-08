@@ -6,5 +6,5 @@ class AuthConfig(AppConfig):
     name = 'userauth'
 
 
-def ready(self):
-    import userauth.signals
+    def ready(self):
+        import userauth.signals

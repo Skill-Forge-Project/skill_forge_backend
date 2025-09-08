@@ -25,6 +25,9 @@ class UserAvatar(models.Model):
     """
     user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='avatar')
     image = models.ImageField(upload_to='avatars/') # Requires Pillow library
+    
+    class Meta:
+        db_table = "user_avatar"
 
     def __str__(self):
         return f"Avatar for {self.user.username}"
@@ -41,6 +44,9 @@ class UserBanStatus(models.Model):
     banned_date = models.DateTimeField(null=True, blank=True)
     ban_reason = models.CharField(max_length=120, blank=True)
     
+    class Meta:
+        db_table = "user_ban_status"
+    
 
 class UserOnlineStatus(models.Model):
     """Model representing the online status of a user.
@@ -51,6 +57,9 @@ class UserOnlineStatus(models.Model):
     user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='online_status')
     status = models.CharField(max_length=10, default='Offline')
     last_seen = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = "user_online_status"
 
 
 class UserGamification(models.Model):
@@ -63,6 +72,9 @@ class UserGamification(models.Model):
     xp_points = models.IntegerField(default=0)
     level = models.IntegerField(default=1)
     rank = models.CharField(max_length=50, default='Novice')
+    
+    class Meta:
+        db_table = "user_gamification"
 
 
 class UserSolvedQuests(models.Model):
@@ -78,6 +90,9 @@ class UserSolvedQuests(models.Model):
     javascript = models.IntegerField(default=0)
     csharp = models.IntegerField(default=0)
     
+    class Meta:
+        db_table = "user_solved_quests"
+    
 
 class UserSubmittedQuests(models.Model):
     """Model representing the number of quests submitted by a user and their statuses.
@@ -90,6 +105,9 @@ class UserSubmittedQuests(models.Model):
     approved = models.IntegerField(default=0)
     rejected = models.IntegerField(default=0)
     pending = models.IntegerField(default=0)
+    
+    class Meta:
+        db_table = "user_submitted_quests"
 
 
 class UserSocialLinks(models.Model):
@@ -104,3 +122,6 @@ class UserSocialLinks(models.Model):
     github = models.URLField(blank=True)
     discord = models.CharField(blank=True)
     linkedin = models.URLField(blank=True)
+    
+    class Meta:
+        db_table = "user_social_links"
