@@ -30,3 +30,15 @@ class UserAvatar(models.Model):
         return f"Avatar for {self.user.username}"
 
 
+class UserBanStatus(models.Model):
+    """Model representing the ban status of a user.
+
+    Args:
+        models (class): Base class for all Django models.
+    """
+    user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='ban_status')
+    is_banned = models.BooleanField(default=False)
+    banned_date = models.DateTimeField(null=True, blank=True)
+    ban_reason = models.CharField(max_length=120, blank=True)
+    
+
