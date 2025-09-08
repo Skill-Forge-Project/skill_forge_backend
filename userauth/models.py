@@ -64,3 +64,16 @@ class UserGamification(models.Model):
     level = models.IntegerField(default=1)
     rank = models.CharField(max_length=50, default='Novice')
 
+
+class UserSolvedQuests(models.Model):
+    """Model representing the number of solved quests by a user in different programming languages.
+
+    Args:
+        models (class): Base class for all Django models.
+    """
+    user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='solved_quests')
+    total_solved = models.IntegerField(default=0)
+    python = models.IntegerField(default=0)
+    java = models.IntegerField(default=0)
+    javascript = models.IntegerField(default=0)
+    csharp = models.IntegerField(default=0)
