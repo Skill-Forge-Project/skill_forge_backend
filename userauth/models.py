@@ -90,3 +90,17 @@ class UserSubmittedQuests(models.Model):
     approved = models.IntegerField(default=0)
     rejected = models.IntegerField(default=0)
     pending = models.IntegerField(default=0)
+
+
+class UserSocialLinks(models.Model):
+    """Model representing social media links for a user.
+
+    Args:
+        models (class): Base class for all Django models.
+    """
+    user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='social_links')
+    facebook = models.URLField(blank=True)
+    instagram = models.URLField(blank=True)
+    github = models.URLField(blank=True)
+    discord = models.CharField(blank=True)
+    linkedin = models.URLField(blank=True)
