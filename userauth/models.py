@@ -42,3 +42,12 @@ class UserBanStatus(models.Model):
     ban_reason = models.CharField(max_length=120, blank=True)
     
 
+class UserOnlineStatus(models.Model):
+    """Model representing the online status of a user.
+
+    Args:
+        models (class): Base class for all Django models.
+    """
+    user = models.OneToOneField(AppUser, on_delete=models.CASCADE, related_name='online_status')
+    status = models.CharField(max_length=10, default='Offline')
+    last_seen = models.DateTimeField(auto_now=True)
